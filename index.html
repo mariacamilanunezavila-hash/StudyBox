@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyBox</title>
+
+    <link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4A90E2">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- MENÚ -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <img src="images/logo-studybox.png" class="logo-img" alt="Logo StudyBox">
+
+<h1>StudyBox</h1>
+            <p>Organiza tu tiempo,<br>potencia tu futuro</p>
+        </div>
+
+        <nav>
+<button class="nav-btn" onclick="showPage('perfil', this)">
+    👤 <span>Mi perfil</span>
+</button>
+            <button class="nav-btn active" onclick="showPage('inicio', this)">
+                🏠 <span>Inicio</span>
+            </button>
+
+            <button class="nav-btn" onclick="showPage('estudiar', this)">
+                📚 <span>Estudiar</span>
+            </button>
+
+            <button class="nav-btn" onclick="showPage('planificacion', this)">
+                📅 <span>Planificación</span>
+            </button>
+
+            <button class="nav-btn" onclick="showPage('tareas', this)">
+                📝 <span>Tareas</span>
+            </button>
+
+            <button class="nav-btn" onclick="showPage('metas', this)">
+                🎯 <span>Metas</span>
+            </button>
+
+            <button class="nav-btn" onclick="showPage('progreso', this)">
+                📊 <span>Progreso</span>
+            </button>
+
+        </nav>
+
+        <button id="darkModeBtn" class="dark-btn" onclick="toggleDarkMode()">
+            🌙 Modo oscuro
+        </button>
+
+    </aside>
+
+
+    <!-- CONTENIDO -->
+    <main class="content">
+<section id="perfil" class="page">
+    <div class="page-header">
+        <div>
+            <p class="small-title">MI CUENTA</p>
+            <h2>👤 Mi perfil</h2>
+        </div>
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-avatar">
+            👩‍🎓
+        </div>
+
+        <input
+            type="text"
+            id="userName"
+            placeholder="Escribe tu nombre"
+        >
+
+        <button class="main-btn" onclick="saveProfile()">
+            💾 Guardar perfil
+        </button>
+    </div>
+</section>
+
+        <!-- INICIO -->
+        <section id="inicio" class="page active">
+
+            <div class="welcome">
+
+                <div>
+                    <p class="small-title">BIENVENIDO A</p>
+
+                    <h2>💡 StudyBox</h2>
+
+                    <h3>Organiza tu tiempo,<br>potencia tu futuro.</h3>
+
+                    <p class="description">
+                        Tu espacio para estudiar, organizar tus tareas,
+                        planificar tus días y cumplir tus metas.
+                    </p>
+
+                    <button class="main-btn"
+                        onclick="showPage('estudiar', document.querySelectorAll('.nav-btn')[1])">
+                        📚 Comenzar a estudiar
+                    </button>
+                </div>
+
+                <div class="welcome-icon">
+                    📚
+                </div>
+
+            </div>
+
+            <div class="home-cards">
+
+                <div class="home-card">
+                    <span>⏱️</span>
+                    <h3 id="homeSessions">0</h3>
+                    <p>Sesiones completadas</p>
+                </div>
+
+                <div class="home-card">
+                    <span>📝</span>
+                    <h3 id="homeTasks">0</h3>
+                    <p>Tareas completadas</p>
+                </div>
+
+                <div class="home-card">
+                    <span>🔥</span>
+                    <h3 id="homeMinutes">0</h3>
+                    <p>Minutos estudiados</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ESTUDIAR -->
+        <section id="estudiar" class="page">
+
+            <div class="page-header">
+                <div>
+                    <p class="small-title">CONCÉNTRATE</p>
+                    <h2>📚 Hora de estudiar</h2>
+                </div>
+            </div>
+
+
+            <div class="study-layout">
+
+                <div class="timer-card">
+
+                    <div id="modeIcon" class="mode-icon">📚</div>
+
+                    <h2 id="modeTitle">Tiempo de estudio</h2>
+
+                    <p id="statusText">
+                        Concéntrate y aprovecha tu tiempo.
+                    </p>
+
+                    <div id="timer" class="timer">
+                        25:00
+                    </div>
+
+                    <div class="progress-container">
+                        <div id="progress" class="progress"></div>
+                    </div>
+
+                    <div class="timer-buttons">
+
+                        <button id="startBtn" class="main-btn">
+                            ▶ Iniciar
+                        </button>
+
+                        <button id="pauseBtn" class="secondary-btn" disabled>
+                            ⏸ Pausar
+                        </button>
+
+                        <button id="resetBtn" class="secondary-btn">
+                            🔄 Reiniciar
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="study-side">
+
+                    <div class="settings-card">
+
+                        <h3>⚙️ Configuración</h3>
+
+                        <label>
+                            Estudio
+                            <input id="studyTime"
+                                   type="number"
+                                   min="1"
+                                   max="120"
+                                   value="25">
+                            <small>minutos</small>
+                        </label>
+
+                        <label>
+                            Descanso corto
+                            <input id="shortBreak"
+                                   type="number"
+                                   min="1"
+                                   max="60"
+                                   value="5">
+                            <small>minutos</small>
+                        </label>
+
+                        <label>
+                            Descanso largo
+                            <input id="longBreak"
+                                   type="number"
+                                   min="1"
+                                   max="60"
+                                   value="15">
+                            <small>minutos</small>
+                        </label>
+
+                        <label>
+                            Descanso largo después de
+                            <input id="longBreakAfter"
+                                   type="number"
+                                   min="1"
+                                   max="10"
+                                   value="4">
+                            <small>sesiones</small>
+                        </label>
+
+                        <button id="saveSettings" class="secondary-btn">
+                            💾 Guardar
+                        </button>
+
+                    </div>
+
+
+                    <div class="music-card">
+
+                        <h3>🎵 Música de descanso</h3>
+
+                        <p>
+                            Selecciona una canción para escuchar
+                            durante tus descansos.
+                        </p>
+
+                        <input type="file"
+                               id="musicFile"
+                               accept="audio/*">
+
+                        <audio id="audio" controls></audio>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PLANIFICACIÓN -->
+        <section id="planificacion" class="page">
+
+            <div class="page-header">
+                <div>
+                    <p class="small-title">ORGANIZA TU SEMANA</p>
+                    <h2>📅 Mi planificación</h2>
+                </div>
+            </div>
+
+            <p class="page-description">
+                Escribe lo que tienes planeado para cada día.
+                Todo se guardará automáticamente.
+            </p>
+
+            <div class="planner-grid">
+
+                <div class="day-card">
+                    <h3>🌞 Lunes</h3>
+                    <textarea id="lunes"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>🌤️ Martes</h3>
+                    <textarea id="martes"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>☀️ Miércoles</h3>
+                    <textarea id="miercoles"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>🌿 Jueves</h3>
+                    <textarea id="jueves"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>✨ Viernes</h3>
+                    <textarea id="viernes"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>🌈 Sábado</h3>
+                    <textarea id="sabado"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+                <div class="day-card">
+                    <h3>🌙 Domingo</h3>
+                    <textarea id="domingo"
+                        placeholder="¿Qué tienes que hacer?"></textarea>
+                </div>
+
+            </div>
+
+            <button class="main-btn" onclick="savePlanner()">
+                💾 Guardar planificación
+            </button>
+
+        </section>
+
+
+        <!-- TAREAS -->
+        <section id="tareas" class="page">
+
+            <div class="page-header">
+                <div>
+                    <p class="small-title">MANTÉN TODO EN ORDEN</p>
+                    <h2>📝 Mis tareas</h2>
+                </div>
+            </div>
+
+            <div class="add-box">
+
+                <input id="taskInput"
+                       type="text"
+                       placeholder="Escribe una nueva tarea...">
+
+                <button class="main-btn" onclick="addTask()">
+                    ➕ Agregar
+                </button>
+
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+
+        </section>
+
+
+        <!-- METAS -->
+        <section id="metas" class="page">
+
+            <div class="page-header">
+                <div>
+                    <p class="small-title">PASO A PASO</p>
+                    <h2>🎯 Mis metas</h2>
+                </div>
+            </div>
+
+            <div class="add-box">
+
+                <input id="goalInput"
+                       type="text"
+                       placeholder="Escribe una nueva meta...">
+
+                <button class="main-btn" onclick="addGoal()">
+                    ➕ Agregar
+                </button>
+
+            </div>
+
+            <div id="goalList" class="goal-list"></div>
+
+        </section>
+
+
+        <!-- PROGRESO -->
+        <section id="progreso" class="page">
+
+            <div class="page-header">
+                <div>
+                    <p class="small-title">TU ESFUERZO CUENTA</p>
+                    <h2>📊 Mi progreso</h2>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>📚</span>
+                    <h2 id="sessionCount">0</h2>
+                    <p>Sesiones completadas</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>⏱️</span>
+                    <h2 id="studyMinutesDisplay">0</h2>
+                    <p>Minutos estudiados</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>🌿</span>
+                    <h2 id="breakCount">0</h2>
+                    <p>Descansos realizados</p>
+                </div>
+
+                <div class="stat-card">
+                    <span>📝</span>
+                    <h2 id="completedTasks">0</h2>
+                    <p>Tareas completadas</p>
+                </div>
+
+            </div>
+
+            <div class="motivation-card">
+                <span>💡</span>
+                <div>
+                    <h3>Frase del día</h3>
+                    <p id="quote">
+                        Cada pequeño avance te acerca a tu meta.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- NOTIFICACIÓN -->
+<div id="notification" class="notification">
+    <span id="notificationText"></span>
+</div>
+
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js")
+            .then(() => console.log("StudyBox está lista como PWA"))
+            .catch(error => console.error("Error:", error));
+    });
+}
+</script>
+
+</body>
+</html>

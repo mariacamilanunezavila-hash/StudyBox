@@ -1,0 +1,17 @@
+{
+  "name": "StudyBox",
+  "short_name": "StudyBox",
+  "description": "Organiza tu tiempo, potencia tu futuro.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4A90E2",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./img/icono.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
